@@ -6,7 +6,7 @@ To use the code, we need a few setup.
 * Edit `index.html` and enter the following to configure the `upload widget`
  * `cloudName`: This should be your cloud name.
  * `uploadPreset`: This should be the unsigned upload preset you created in the previous step. (See below)
-* Upload a set of images and tag them as _background_.
+* Upload a set of images and tag them as _background_. If you'd like to change this tag name, see tutorial.md.
 
 ```javascript
   var myWidget = cloudinary.createUploadWidget({
