@@ -9,10 +9,15 @@ To use the code, we need a few setup.
 * Upload a set of images and tag them as _background_. If you'd like to change this tag name, see tutorial.md.
 
 ```javascript
-  var myWidget = cloudinary.createUploadWidget({
-      cloudName: "<< your cloud name >>",
-      uploadPreset: "<< your unsigned upload preset name >>"
-    },
+        /* ------------------ USER SPECIFIC SETUP --------------------------- */
+      // Add your cloudname and preset here
+
+      // cloud name
+      var cloudName = '<< your cloud name >>'
+      // upload preset name
+      var preset = '<< your preset name >>'
+
+      /* ------------------ USER SPECIFIC ENDS --------------------------- */
 ```
 
 That's it. You should be set and able to work with the code.

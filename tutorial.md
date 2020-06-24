@@ -89,10 +89,15 @@ Sample URL: https://akshayranganath-res.cloudinary.com/image/list/background.jso
 The next step is to use & configure the [upload widget](https://cloudinary.com/documentation/upload_widget). Follow instructions on the page to include a basic uploader. Configure the widget so that it can use your Cloudinary cloud name and the unsigned upload preset that was created in step 1.
 
 ```javascript
-  var myWidget = cloudinary.createUploadWidget({
-      cloudName: "<< your cloud name >>",
-      uploadPreset: "<< your unsigned upload preset name >>"
-    },
+        /* ------------------ USER SPECIFIC SETUP --------------------------- */
+      // Add your cloudname and preset here
+
+      // cloud name
+      var cloudName = '<< your cloud name >>'
+      // upload preset name
+      var preset = '<< your preset name >>'
+
+      /* ------------------ USER SPECIFIC ENDS --------------------------- */
 ```
 
 At this point, we have a few background images, an upload widget that can upload to Cloudinary and tag the objects as `collage`.

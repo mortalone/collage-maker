@@ -4,7 +4,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, minimum-scale=1"/>
       <link rel="stylesheet" href="style.css">
       <script type="text/javascript" src="script.js"></script>
-      <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+      <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>      
    </head>
    <body>
       <h1>Collage Creator</h1>
@@ -33,10 +33,18 @@
       <div id="finalCollage"></div>
       
       <script type="text/javascript">
-      // place for all the JS plumbing
+      /* ------------------ USER SPECIFIC SETUP --------------------------- */
+      // Add your cloudname and preset here
+
+      // cloud name
+      var cloudName = 'mermaid'
+      // upload preset name
+      var preset = 'unsignedCollageUpload'
+
+      /* ------------------ USER SPECIFIC ENDS --------------------------- */
 
       // an array to host the list of images uploaded
-      var images = new Array();   
+      var images = new Array();              
 
       // variable holding the name of the background image that is selected for generating the collage
       var selectedBackground = findSelectedBackground(); 
@@ -77,8 +85,8 @@
         Initialize the uploader widget and attach a click event.
         */          
          var myWidget = cloudinary.createUploadWidget({
-             cloudName: "akshayranganath",
-             uploadPreset: "testupload"
+             cloudName: window.cloudName,
+             uploadPreset: window.preset
            },
            (error, result) => {
              if (!error && result && result.event === "success") {

@@ -3,7 +3,7 @@
 */
 function displayUploadedImage (publicId) {
   var img = new Image()
-  img.src = 'https://res.cloudinary.com/akshayranganath/image/upload/c_thumb,w_350,h_350,f_auto,q_auto/' + publicId
+  img.src = 'https://res.cloudinary.com/' + window.cloudName + '/image/upload/c_thumb,w_350,h_350,f_auto,q_auto/' + publicId
   var imageDiv = document.getElementById('images')
   imageDiv.append(img)
 }
@@ -14,12 +14,12 @@ function displayUploadedImage (publicId) {
  * Reset selection as well so that we don't confuse users on their chosen background.
 */
 function findSelectedBackground () {
-  fetch('https://akshayranganath-res.cloudinary.com/image/list/background.json')
+  fetch('https://res.cloudinary.com/' + window.cloudName + '/image/list/background.json')
     .then(resp => {
       resp.json().then(json => {
         var objects = json.resources
         for (var i = 0; i < objects.length; i++) {
-          var url = 'https://res.cloudinary.com/akshayranganath/c_thumb,w_250,h_250,f_auto,q_auto/' + objects[i].public_id
+          var url = 'https://res.cloudinary.com/' + window.cloudName + '/c_thumb,w_250,h_250,f_auto,q_auto/' + objects[i].public_id
           var img = new Image()
           img.src = url
           img.alt = objects[i].public_id
@@ -48,16 +48,16 @@ function findSelectedBackground () {
 */
 function generateCollage (images, background) {
   var totalImages = images.length
-  var url
+  var url = 'https://res.cloudinary.com/' + window.cloudName + '/image/upload/'
 
   if (totalImages === 2) {
-    url = 'https://res.cloudinary.com/akshayranganath/image/upload/$h_ih_sub_20,$w_iw_div_2_sub_20,$x_iw_div_4,$x1_iw_div_4_mul_-1,$nw_iw,$nh_ih_div_2,$t_ih_div_4/c_scale,w_$nw,h_$nh' +
+    url += '$h_ih_sub_20,$w_iw_div_2_sub_20,$x_iw_div_4,$x1_iw_div_4_mul_-1,$nw_iw,$nh_ih_div_2,$t_ih_div_4/c_scale,w_$nw,h_$nh' +
               '/l_' + images[0] +
               ',w_$w,h_$h,c_pad,x_$x,e_unsharp_mask' +
               '/l_' + images[1] +
               ',w_$w,h_$h,c_pad,x_$x1,e_unsharp_mask/'
   } else if (totalImages === 3) {
-    url = 'https://res.cloudinary.com/akshayranganath/image/upload/$ox_iw_div_4,$ox1_iw_div_4_mul_-1,$oy_ih_div_4,$oy1_ih_div_4_mul_-1,$w_iw_div_2_sub_20,$w1_iw_sub_20,$h_ih_div_2_sub_20,$t_ih_div_4/' +
+    url += '$ox_iw_div_4,$ox1_iw_div_4_mul_-1,$oy_ih_div_4,$oy1_ih_div_4_mul_-1,$w_iw_div_2_sub_20,$w1_iw_sub_20,$h_ih_div_2_sub_20,$t_ih_div_4/' +
         'l_' + images[0] +
         ',x_$ox,y_$oy1,w_$w,h_$h,c_pad,e_unsharp_mask/' +
         'l_' + images[1] +
@@ -65,7 +65,7 @@ function generateCollage (images, background) {
         'l_' + images[2] +
         ',y_$oy,w_$w,h_$h,c_pad,e_unsharp_mask/'
   } else if (totalImages === 4) {
-    url = 'https://res.cloudinary.com/akshayranganath/image/upload/$ox_iw_div_4,$ox1_iw_div_4_mul_-1,$oy_ih_div_4,$oy1_ih_div_4_mul_-1,$w_iw_div_2_sub_20,$h_ih_div_2_sub_20,$t_ih_div_4/' +
+    url += '$ox_iw_div_4,$ox1_iw_div_4_mul_-1,$oy_ih_div_4,$oy1_ih_div_4_mul_-1,$w_iw_div_2_sub_20,$h_ih_div_2_sub_20,$t_ih_div_4/' +
         'l_' + images[0] +
         ',x_$ox,y_$oy1,w_$w,h_$h,c_pad,e_unsharp_mask/' +
         'l_' + images[1] +
@@ -77,7 +77,7 @@ function generateCollage (images, background) {
   }
 
   if (document.getElementById('message').value) {
-    url += 'l_text:Parisienne_35_bold:' + encodeURI(document.getElementById('message').value) + ',y_$t,co_rgb:990C47,g_north/'
+    url += '/l_text:Sacramento_35_bold:' + encodeURI(document.getElementById('message').value) + ',y_$t,co_rgb:990C47,g_north/'
   }
   url += 'f_auto,q_auto/' + background
 
@@ -92,13 +92,4 @@ function generateCollage (images, background) {
   ahref.target = '_blank'
   ahref.text = 'Download the image'
   collage.append(ahref)
-}
-
-/*
-  Helper function that can return the set of images tagged as `background`
-*/
-function loadBackgroundImages () {
-  // first make a call to pull down all images tagged with 'background' and display them
-  resp = fetch('https://akshayranganath-res.cloudinary.com/image/list/background.json')
-  console.log(resp.json())
 }
