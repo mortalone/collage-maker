@@ -17,4 +17,4 @@ To use the code, we need a few setup.
 
 That's it. You should be set and able to work with the code.
 
-For details, please refer to _tutorial.md_.
+For details, please refer to [_tutorial.md_](https://github.com/akshay-ranganath/collage-maker/blob/master/tutorial.md).
