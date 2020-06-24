@@ -1,14 +1,15 @@
 body {
-  font-family: helvetica;
+  font-family: 'PT Sans', sans-serif;
   color: black;
+  background-color: #B9D9EB;
   /*text-align: center;*/
 }
 h1{
-   font-size: 2.5vw;
+   font-size: 2vw;
    text-align: center;
 }
 h2{
-   font-size: 2vw;   
+   font-size: 1.5vw;   
 }
 img {
   border: 1px solid black;
