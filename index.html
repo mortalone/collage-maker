@@ -1,0 +1,113 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+<script type="text/javascript" src="script.js"></script>
+</head>
+<body>
+<h1>Collage Creator</h1>
+<div>
+  <h2>Step 1: Choose a Background</h2>
+    <div id="bgpics"></div>
+  <script type="text/javascript">
+    var selectedBackground;
+   fetch('https://akshayranganath-res.cloudinary.com/image/list/background.json')
+  .then(resp => {
+    resp.json().then(json => {
+      var objects = json.resources
+      for (var i = 0; i < objects.length; i++) {
+        var url = 'https://res.cloudinary.com/akshayranganath/c_thumb,w_250,h_250,f_auto,q_auto/' + objects[i].public_id
+       var img = new Image()
+       img.src = url
+        img.alt = objects[i].public_id        
+        img.addEventListener("click", function(){
+            
+          // first cleanup the background for all images
+          var bgpics = document.getElementById('bgpics').childNodes
+          for(var i=0;i<bgpics.length;i++){
+            bgpics[i].style = ""
+          }
+
+            selectedBackground = this.alt;
+            this.style = "border: 5px solid yellow"
+        },false)
+       document.getElementById('bgpics').append(img)        
+      }
+    }).catch(e => {
+      console.log(e)
+    })
+  }).catch(e => {
+    console.log(e)
+  })      
+  </script>
+</div>
+<div>
+  <h2>Step 2: Upload your files</h2>
+<button id="upload_widget" class="cloudinary-button">Upload files</button>
+
+<script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+  var images = new Array();
+  var myWidget = cloudinary.createUploadWidget({
+      cloudName: "akshayranganath",
+      uploadPreset: "testupload"
+    },
+    (error, result) => {
+      if (!error && result && result.event === "success") {
+        images.push(result.info.public_id);
+        listImages(result.info.public_id)
+      }
+    }
+  );
+  document.getElementById("upload_widget").addEventListener(
+    "click",
+    function() {
+      myWidget.open();
+    },
+    false
+  );    
+</script>
+
+<div id='images'>  
+</div>
+</div>
+<div>
+<h2>Step 3: Add a message (optional)</h2><br />
+<input type="text" id="message"></input>
+</div>
+<div>
+  <h2>Step 4: Create Collage</h2>
+<button id="collage" class="cloudinary-button">Create Collage</button>
+
+<script type="text/javascript">
+  document.getElementById("collage").addEventListener(
+    "click",
+    function() {
+      generateCollage(images, selectedBackground);      
+    },
+    false
+  );
+</script>
+
+<button id="reset" class="cloudinary-button">Reset</button>
+<script type="text/javascript">
+  document.getElementById("reset").addEventListener(
+    "click",
+    function() {
+      // clear all selections
+      document.getElementById('images').innerHTML = ""
+      document.getElementById('finalCollage').innerHTML = ""
+      document.getElementById('message').value=""
+      var bgpics = document.getElementById('bgpics').childNodes
+          for(var i=0;i<bgpics.length;i++){
+            bgpics[i].style = ""
+          }
+      images = new Array();
+    },
+    false
+  );
+</script>
+</div>
+<div id="finalCollage"></div>
+</body>
+</html>
