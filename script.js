@@ -1,20 +1,56 @@
-function listImages (image) {
+/*
+ * displayUploadedImage - Helper function that takes the public Id of an image, creates an <img> tag and loads a thumnail crop.
+*/
+function displayUploadedImage (publicId) {
   var img = new Image()
-  img.src = 'https://res.cloudinary.com/akshayranganath/image/upload/c_thumb,w_350,h_350,f_auto,q_auto/' + image
+  img.src = 'https://res.cloudinary.com/akshayranganath/image/upload/c_thumb,w_350,h_350,f_auto,q_auto/' + publicId
   var imageDiv = document.getElementById('images')
   imageDiv.append(img)
 }
 
+/*
+ * findSelectedBackground - Load all the images that are tagged with `background`
+ * Attach a click even so that we can detect the background selected by user.
+ * Reset selection as well so that we don't confuse users on their chosen background.
+*/
+function findSelectedBackground () {
+  fetch('https://akshayranganath-res.cloudinary.com/image/list/background.json')
+    .then(resp => {
+      resp.json().then(json => {
+        var objects = json.resources
+        for (var i = 0; i < objects.length; i++) {
+          var url = 'https://res.cloudinary.com/akshayranganath/c_thumb,w_250,h_250,f_auto,q_auto/' + objects[i].public_id
+          var img = new Image()
+          img.src = url
+          img.alt = objects[i].public_id
+          img.addEventListener('click', function () {
+            // first cleanup the background for all images
+            var bgpics = document.getElementById('bgpics').childNodes
+            for (var i = 0; i < bgpics.length; i++) {
+              bgpics[i].style = ''
+            }
+            this.style = 'border: 5px solid yellow'
+            // set the global variable tracking the background image
+            window.selectedBackground = this.alt
+          }, false)
+          document.getElementById('bgpics').append(img)
+        }
+      }).catch(e => {
+        console.log(e)
+      })
+    }).catch(e => {
+      console.log(e)
+    })
+}
+
+/*
+  generateCollage generates the picture collage using the array of uploaded `images` and by overlaying them on the `background` image.
+*/
 function generateCollage (images, background) {
   var totalImages = images.length
   var url
-  // if 2 images are selected
+
   if (totalImages === 2) {
-    // https://res.cloudinary.com/akshayranganath/image/upload/
-    // $nw_iw_div_2_sub_20,$no_iw_div_4,$no1_iw_div_4_mul_-1,$nh_ih_div_2_add_200/c_crop,h_$nh,ar_4/
-    // l_wequ71sxouikpv2ebnbe,c_pad,w_$nw,h_$nh,x_$no1/
-    // l_zgs1xnhlowcayhynagf3,c_pad,w_$nw,h_$nh,x_$no/
-    // background/oojobk4jlwfigvhg77mt
     url = 'https://res.cloudinary.com/akshayranganath/image/upload/$h_ih_sub_20,$w_iw_div_2_sub_20,$x_iw_div_4,$x1_iw_div_4_mul_-1,$nw_iw,$nh_ih_div_2,$t_ih_div_4/c_scale,w_$nw,h_$nh' +
               '/l_' + images[0] +
               ',w_$w,h_$h,c_pad,x_$x,e_unsharp_mask' +
@@ -58,6 +94,9 @@ function generateCollage (images, background) {
   collage.append(ahref)
 }
 
+/*
+  Helper function that can return the set of images tagged as `background`
+*/
 function loadBackgroundImages () {
   // first make a call to pull down all images tagged with 'background' and display them
   resp = fetch('https://akshayranganath-res.cloudinary.com/image/list/background.json')
