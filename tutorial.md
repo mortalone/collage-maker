@@ -13,6 +13,8 @@ There are a few [support articles]
 
 Here's how you can use the code.
 
+>Try a live demo: https://collage-creator.netlify.app/
+
 ## Step 1: Create an unsigned upload preset
 
 Head to Cloudinary console -> Settings (gear icon on top right) -> Upload tab. Scroll down and click on _Add Upload Preset_ link.
@@ -136,6 +138,21 @@ Re-sizing of the uploaded image is generally done as follows.
 * Use the default (`g_auto:center`) for finding the relative origin and offsetting.
 
 Using the above calculation, create the collage. For generating the download line, replace `f_auto` with `fl_attach`. This will make sure that end users download the images as a JPG and not a WebP.
+
+## Cleanup
+
+If at any point, you'd like to clear all the images that were uploaded for creating the collage, do the following:
+
+* Copy your Cloudinary API credentials from the _Dashboard_ tab.
+
+![copy cloudinary credentials](https://akshayranganath-res.cloudinary.com/image/upload/f_auto,q_auto/blog/ojisih8bxcxa7fh7rqf7.png)
+
+* Save the credentials as an environmental variable `CLOUDINARY_URL`
+* Run the script `deleteResourcesByTagName.js` as:
+```
+node deleteResourcesByTagName.js
+```
+This will remove all the images tagged as `collage`. The images used for background will remain safe.
 
 ## Next Steps
 
