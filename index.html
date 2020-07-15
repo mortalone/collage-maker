@@ -5,34 +5,47 @@
       <link rel="stylesheet" href="style.css">
       <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
       <script type="text/javascript" src="script.js"></script>
-      <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>      
+      <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>  
+      <link rel="icon" size="16x16" href="/images/favicon-16x16.png">
+      <link rel="icon" size="32x32" href="/images/favicon-32x32.png">
+      <link rel="icon" href="/images/favicon.png">
+      <link rel="icon" size="16x16" href="/images/favicon-16x16.png">
+      <link rel="icon" size="32x32" href="/images/favicon-32x32.png">
+      <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+      <link rel="icon" size="192x192" href="/images/android-chrome-192x192.png">
+      <link rel="icon" size="512x512" href="/images/android-chrome-512x512.png">
    </head>
-   <body>
-      <h1>Collage Creator</h1>
-      <hr />
-      <div>
-         <h2>Step 1: Choose a Background</h2>
+   <body>      
+      <img src='logo.png' width="25%">
+      <hr />    
+    <div class="container">
+      <div class="row">
+        <h3>Create Your Collage</h3>
+      </div>
+      <div class="row">
+         <h4>Step 1: Choose a Background</h4>
          <!-- div to show the background images available -->
          <div id="bgpics"></div>
       </div>
-      <div>
-         <h2>Step 2: Upload your files</h2>
-         <button id="upload_widget" class="cloudinary-button">Upload files</button>
+      <div class="row">
+         <h4>Step 2: Upload your files</h4>
+         <button id="upload_widget">Upload files</button>
          <!-- div to show the thumbnails of the uploaded images -->
          <div id='images'>  </div>
       </div>
-      <div>
-         <h2>Step 3: Add a message (optional)</h2>
+      <div class="row">
+         <h4>Step 3: Add a message (optional)</h4>
          <br />
          <input type="text" id="message"></input>
       </div>
-      <div>
-         <h2>Step 4: Create Collage</h2>
-         <button id="collage" class="cloudinary-button">Create Collage</button>
-         <button id="reset" class="cloudinary-button">Reset</button>
+      <div class="row">
+         <h4>Step 4: Create Collage</h4>
+         <button id="collage">Create Collage</button>
+         <button id="reset">Reset</button>
       </div>
       <!-- placeholder for the final collage -->
-      <div id="finalCollage"></div>
+      <div class="row" id="finalCollage"></div>
+    </div>
       
       <script type="text/javascript">
       /* ------------------ USER SPECIFIC SETUP --------------------------- */
