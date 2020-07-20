@@ -103,6 +103,8 @@ function generateCollage (images, background) {
       ahref.href = url.replace('f_auto', 'fl_attachment')
       ahref.target = '_blank'
       ahref.text = 'Download the image'
+      // clear any previous error messages
+      collage.innerHTML = ''
       collage.append(ahref)
     }
   }
