@@ -64,7 +64,7 @@ function generateCollage (images, background) {
         ',x_$ox1,y_$oy1,w_$w,h_$h,c_pad,e_unsharp_mask/' +
         'l_' + images[2] +
         ',y_$oy,w_$w,h_$h,c_pad,e_unsharp_mask/'
-  } else if (totalImages === 4) {
+  } else { // if (totalImages === 4)
     url += '$ox_iw_div_4,$ox1_iw_div_4_mul_-1,$oy_ih_div_4,$oy1_ih_div_4_mul_-1,$w_iw_div_2_sub_20,$h_ih_div_2_sub_20,$t_ih_div_4/' +
         'l_' + images[0] +
         ',x_$ox,y_$oy1,w_$w,h_$h,c_pad,e_unsharp_mask/' +
