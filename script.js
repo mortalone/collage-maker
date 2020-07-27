@@ -52,8 +52,8 @@ function generateCollage (images, background) {
 
   var totalImages = images.length
   // set the number of images to be a max of 4
-  if (totalImages > 4) {
-    totalImages = 4
+  if (totalImages > 14) {
+    totalImages = 14
   }
 
   // display an error message if there are less than 4 images
